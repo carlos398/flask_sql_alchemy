@@ -1,0 +1,14 @@
+{% if contact %}
+    <form action="/update/{{contact.id}}" method="POST">
+        <label for="fullname">Full Name</label>
+        <input type="text" name="fullname" placeholder="Write your fullname" value="{{contact.fullname}}">
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="write your email" value="{{contact.email}}">
+        <label for="phone">Phone</label>
+        <input type="number" name="phone" placeholder="write your phone" value="{{contact.phone}}">
+
+        <button>
+            Update Data
+        </button>
+    </form>
+{% endif %}
