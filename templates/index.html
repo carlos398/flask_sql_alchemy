@@ -1,30 +1,60 @@
-<form action="/new" method="POST">
-    <label for="fullname">Full Name</label>
-    <input type="text" name="fullname" placeholder="Write your fullname">
-    <label for="email">Email</label>
-    <input type="email" name="email" placeholder="write your email">
-    <label for="phone">Phone</label>
-    <input type="number" name="phone" placeholder="write your phone">
+{% extends "layout.html" %}
 
-    <button>
-        Save Data
-    </button>
-</form>
+{% block content %}
+    <div class="row">
+        {% include 'partials/_messages.html' %}
+        
+        <div class="col-md-5 ">
 
-<div>
-    {% if contacts %}
-        {% for contact in contacts %}
-            <div class="card">
-                <h2><span>#{{contact.id}}</span> {{contact.fullname}} </h2>
-                <p>{{contact.email}}</p>
-                <p>{{contact.phone}}</p>
-                <div>
-                    <a href="{{url_for('contacts_route.update', id=contact.id ) }}">Update</a>
-                    <a href="{{url_for('contacts_route.delete', id=contact.id ) }}">Delete</a>
-                </div>
+            <div class="card-body card border-secondary">
+                <form action="/new" method="POST">
+                    <div class="form-group">
+                        <label for="fullname" class="col-sm-2 col-form-label">Full Name</label>
+                        <input type="text" name="fullname" placeholder="Write your fullname" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <input type="email" name="email" placeholder="write your email" class="form-control">
+                    </div>
+                    
+                    <div class="form-group" >
+                        <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                        <input type="number" name="phone" placeholder="write your phone" class="form-control">
+                    </div>
+                    <div class="form-group mt-2">
+                        <button class="btn btn-success form-control">Save Data</button>
+                    </div>
+                </form>
             </div>
-        {% endfor %}
-    {% else %}
-        <p class="Message">Create un contacto mi pana</p>
-    {% endif %}
-</div>
+        </div>
+
+        <div class="col-md-7">
+            {% if contacts %}
+                <div class="row">
+                    {% for contact in contacts %}
+                        <div class="col-md-6">
+                            <div class="card border-dark mb-2 p-0" style="max-width: 23rem;">
+                                <div class="card-header">
+                                    <h2><span>#{{contact.id}}</span> {{contact.fullname}} </h2>
+                                </div>
+    
+                                <div class="card-body">
+                                    <div class="container">
+                                        <h6 class="card-text-header " >{{contact.email}}</h6>
+                                        <h6 class="card-text-header" >{{contact.phone}}</h6>
+                                        <div>
+                                            <a href="{{url_for('contacts_route.update', id=contact.id ) }}" class="btn btn-info ">Update</a>
+                                            <a href="{{url_for('contacts_route.delete', id=contact.id ) }}" class="btn btn-outline-primary">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="Message">Create un contacto mi pana</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

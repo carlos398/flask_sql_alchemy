@@ -21,6 +21,8 @@ def new():
     
     db.session.add(new_contact)
     db.session.commit()
+    
+    flash('Contact added succesfully! ', 'success')
 
     return redirect(url_for('contacts_route.home'))
 
@@ -34,6 +36,9 @@ def update(id):
         contact.email = request.form["email"]
         contact.phone = request.form["phone"]
         db.session.commit()
+        
+        flash('Contact updated succesfully! ', 'success')
+        
         return redirect(url_for('contacts_route.home'))
     else:
         return render_template('update.html', contact=contact)
@@ -44,4 +49,6 @@ def delete(id):
     contact = Contact.query.get(id)
     db.session.delete(contact)
     db.session.commit()
+    
+    flash('Contact deleted succesfully! ', 'success')
     return redirect(url_for('contacts_route.home'))
